@@ -3,6 +3,10 @@
 NVDA add-on for working with Todoist projects, tasks, subtasks, reminders, and
 daily summaries directly from NVDA.
 
+## Download
+
+[Download latest version (v0.1.3)](https://github.com/denis-skripnik/todoistNvda/releases/download/v0.1.3/todoistNvda-0.1.3.nvda-addon)
+
 ## Features
 
 - Open the main window from NVDA Tools or with `NVDA+Windows+T`
