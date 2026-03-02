@@ -908,7 +908,7 @@ class TaskBrowserDialog(wx.Dialog):
         if not self._completed_mode:
             self.editTextButton = wx.Button(panel, label=_("Изменить текст"))
             self.editDueButton = wx.Button(panel, label=_("Изменить срок"))
-            self.labelsButton = wx.Button(panel, label=_("Тег"))
+            self.labelsButton = wx.Button(panel, label=_("Теги"))
             self.deleteButton = wx.Button(panel, label=_("Удалить"))
             for button in (
                 self.editTextButton,
