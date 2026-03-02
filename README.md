@@ -5,7 +5,7 @@ daily summaries directly from NVDA.
 
 ## Download
 
-[Download latest version (v0.1.3)](https://github.com/denis-skripnik/todoistNvda/raw/main/dist/todoistNvda-0.1.3.nvda-addon)
+[Download latest version (v0.1.4)](https://github.com/denis-skripnik/todoistNvda/raw/main/dist/todoistNvda-0.1.4.nvda-addon)
 
 ## Features
 
