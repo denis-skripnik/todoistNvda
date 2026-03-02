@@ -12,6 +12,7 @@ daily summaries directly from NVDA.
 - Open the main window from NVDA Tools or with `NVDA+Windows+T`
 - Browse projects and active tasks
 - Search tasks in the current project or across all projects
+- Filter tasks by labels using the "Filter" button or `NVDA+Windows+F`
 - Add, edit, complete, reopen, and delete tasks
 - Work with subtasks
 - Create projects from the main window

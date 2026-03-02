@@ -165,6 +165,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def script_openTodoistManager(self, gesture):
         self._open_main_window()
 
+    @scriptHandler.script(
+        description=_("Open label filter"),
+        gesture="kb:nvda+windows+f",
+        category=scriptCategory,
+    )
+    def script_openLabelFilter(self, gesture):
+        if self._mainDialog is None:
+            ui.message(_("Open Todoist manager first"))
+            return
+        try:
+            if self._mainDialog.IsShown():
+                self._mainDialog._onFilter(None)
+                return
+        except Exception:
+            pass
+        ui.message(_("Open Todoist manager first"))
+
     def _register_settings_panel(self):
         for panelClass in list(NVDASettingsDialog.categoryClasses):
             if panelClass is TodoistSettingsPanel:

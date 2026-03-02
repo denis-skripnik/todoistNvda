@@ -216,6 +216,55 @@ class ProjectNameDialog(wx.Dialog):
         return self.nameEdit.GetValue().strip()
 
 
+class LabelFilterDialog(wx.Dialog):
+    def __init__(self, parent, labels: list[str], selected_labels: set[str] | None = None):
+        super().__init__(parent, title=_("Фильтр по тегам"), style=wx.DEFAULT_DIALOG_STYLE)
+        self._labels = labels
+        self._selected_labels = set(selected_labels) if selected_labels else set()
+        self._checkboxes: list[tuple[str, wx.CheckBox]] = []
+
+        panel = wx.Panel(self)
+        mainSizer = wx.BoxSizer(wx.VERTICAL)
+        panelSizer = wx.BoxSizer(wx.VERTICAL)
+
+        if labels:
+            panelSizer.Add(
+                wx.StaticText(panel, label=_("Выберите теги для фильтра:")),
+                flag=wx.LEFT | wx.RIGHT | wx.TOP,
+                border=12,
+            )
+            labelsWindow = wx.ScrolledWindow(panel, style=wx.VSCROLL | wx.BORDER_THEME)
+            labelsWindow.SetScrollRate(0, 10)
+            labelsWindow.SetMinSize((-1, 200))
+            labelsSizer = wx.BoxSizer(wx.VERTICAL)
+            for labelName in labels:
+                checkbox = wx.CheckBox(labelsWindow, label=labelName)
+                checkbox.SetValue(labelName in self._selected_labels)
+                self._checkboxes.append((labelName, checkbox))
+                labelsSizer.Add(checkbox, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=8)
+            labelsSizer.AddSpacer(8)
+            labelsWindow.SetSizer(labelsSizer)
+            panelSizer.Add(labelsWindow, proportion=1, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=12)
+        else:
+            panelSizer.Add(
+                wx.StaticText(panel, label=_("Нет доступных тегов.")),
+                flag=wx.LEFT | wx.RIGHT | wx.TOP,
+                border=12,
+            )
+
+        panel.SetSizer(panelSizer)
+        mainSizer.Add(panel, proportion=1, flag=wx.EXPAND)
+        mainSizer.Add(
+            self.CreateSeparatedButtonSizer(wx.OK | wx.CANCEL),
+            flag=wx.EXPAND | wx.ALL,
+            border=12,
+        )
+        self.SetSizerAndFit(mainSizer)
+
+    def get_selected_labels(self) -> set[str]:
+        return {label for label, checkbox in self._checkboxes if checkbox.GetValue()}
+
+
 class LabelNameDialog(wx.Dialog):
     def __init__(self, parent):
         super().__init__(parent, title=_("Новый тег"), style=wx.DEFAULT_DIALOG_STYLE)
@@ -766,8 +815,10 @@ class TaskBrowserDialog(wx.Dialog):
         self._visibleTasks: list[dict[str, Any]] = []
         self._closed = False
         self._pendingProjectId: str | None = None
+        self._labelFilter: set[str] = set()
 
         self._build_ui()
+        self._setup_accelerators()
         self.Bind(wx.EVT_CLOSE, self._onClose)
 
         if self._parent_task is None:
@@ -799,8 +850,10 @@ class TaskBrowserDialog(wx.Dialog):
             searchSizer = wx.BoxSizer(wx.HORIZONTAL)
             self.searchEdit = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER)
             self.searchButton = wx.Button(panel, label=_("Найти"))
+            self.filterButton = wx.Button(panel, label=_("Фильтр"))
             searchSizer.Add(self.searchEdit, proportion=1, flag=wx.RIGHT, border=8)
-            searchSizer.Add(self.searchButton)
+            searchSizer.Add(self.searchButton, flag=wx.RIGHT, border=8)
+            searchSizer.Add(self.filterButton)
             panelSizer.Add(
                 searchSizer,
                 flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM,
@@ -810,6 +863,7 @@ class TaskBrowserDialog(wx.Dialog):
             self.projectCombo.Bind(wx.EVT_COMBOBOX, self._onProjectChanged)
             self.searchButton.Bind(wx.EVT_BUTTON, self._onSearch)
             self.searchEdit.Bind(wx.EVT_TEXT_ENTER, self._onSearch)
+            self.filterButton.Bind(wx.EVT_BUTTON, self._onFilter)
             if self.addProjectButton is not None:
                 self.addProjectButton.Bind(wx.EVT_BUTTON, self._onAddProject)
         else:
@@ -938,6 +992,17 @@ class TaskBrowserDialog(wx.Dialog):
             return None
         return self._visibleTasks[index]
 
+    def _setup_accelerators(self):
+        # Set up keyboard handler for filter shortcut
+        self.Bind(wx.EVT_CHAR_HOOK, self._on_char_hook)
+
+    def _on_char_hook(self, evt):
+        # Check for Ctrl+F as filter shortcut
+        if evt.GetKeyCode() == ord('F') and evt.ControlDown():
+            self._onFilter(None)
+            return
+        evt.Skip()
+
     def request_refresh(self):
         if self._parent_task is None and not self._projects:
             self._load_projects()
@@ -1038,12 +1103,22 @@ class TaskBrowserDialog(wx.Dialog):
         query = ""
         if self._parent_task is None:
             query = self.searchEdit.GetValue().strip().lower()
+        filtered_tasks = self._tasks
+
+        # Apply text search filter
         if query:
-            self._visibleTasks = [
-                task for task in self._tasks if query in get_task_content(task).lower()
+            filtered_tasks = [
+                task for task in filtered_tasks if query in get_task_content(task).lower()
             ]
-        else:
-            self._visibleTasks = list(self._tasks)
+
+        # Apply label filter
+        if self._labelFilter:
+            filtered_tasks = [
+                task for task in filtered_tasks
+                if set(get_task_labels(task)) & self._labelFilter
+            ]
+
+        self._visibleTasks = filtered_tasks
 
         self.tasksList.Clear()
         for task in self._visibleTasks:
@@ -1064,6 +1139,24 @@ class TaskBrowserDialog(wx.Dialog):
     def _onSearch(self, evt):
         self._apply_filter()
         self._status(_("Found tasks: {count}").format(count=len(self._visibleTasks)))
+
+    def _onFilter(self, evt):
+        if not self._labels:
+            ui.message(_("No labels available. Load tasks first."))
+            return
+        dialog = LabelFilterDialog(self, self._labels, self._labelFilter)
+        try:
+            dialog.CentreOnParent()
+            if dialog.ShowModal() != wx.ID_OK:
+                return
+            self._labelFilter = dialog.get_selected_labels()
+        finally:
+            dialog.Destroy()
+        self._apply_filter()
+        if self._labelFilter:
+            self._status(_("Фильтр: {count} тегов").format(count=len(self._labelFilter)))
+        else:
+            self._status(_("Фильтр сброшен"))
 
     def _onSelectionChanged(self, evt):
         self._update_action_state()
