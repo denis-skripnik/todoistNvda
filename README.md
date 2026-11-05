@@ -20,6 +20,16 @@ daily summaries directly from NVDA.
 - Receive a due-time reminder dialog with `Выполнил` and `OK`
 - Receive a daily summary of today's incomplete tasks at a configured time
 
+## Task tree navigation
+
+Tasks and subtasks use a native tree with accessible levels and expanded/collapsed
+states. Press Right Arrow to expand a task, Down Arrow to visit its children, and
+Left Arrow to collapse it (or return to its parent). Tab reaches the existing
+action buttons, which act on the selected task at any depth. Escape clears the
+selection and enables Add; use the Subtasks button to open a branch and add a
+subtask there. Refresh keeps surviving selections and expanded branches. Search
+and label filters show matching tasks even when their parents do not match.
+
 ## Settings
 
 In NVDA Settings, the Todoist panel lets you configure:

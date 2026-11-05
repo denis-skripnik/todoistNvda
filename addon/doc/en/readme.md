@@ -15,6 +15,16 @@ Todoist for NVDA adds a global Todoist task manager to NVDA.
 - Receive a due-time reminder dialog with `Выполнил` and `OK`
 - Receive a daily summary of today's incomplete tasks at a configured time
 
+## Task tree navigation
+
+Tasks and subtasks use a native tree with accessible levels and expanded/collapsed
+states. Press Right Arrow to expand a task, Down Arrow to visit its children, and
+Left Arrow to collapse it (or return to its parent). Tab reaches the action
+buttons for the selected task at any depth. Escape clears the selection and
+enables Add. Use the Subtasks button to open a branch and add a subtask there.
+Refresh preserves surviving selections and expanded branches. Matching tasks
+remain visible when search or label filters exclude their parents.
+
 ## Settings
 
 Open NVDA Settings and configure:

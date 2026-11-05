@@ -8,8 +8,8 @@ ADDON_INFO = {
     "author": "denis-skripnik",
     "url": "https://github.com/denis-skripnik",
     "docFileName": "readme.html",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "minimumNVDAVersion": "2024.1",
     "lastTestedNVDAVersion": "2025.3.3",
-    "changelog": "Added label filter with NVDA+Windows+F shortcut and renamed 'Тег' button to 'Теги'.",
+    "changelog": "Native hierarchical task tree with arrow navigation and selection/expansion restoration.",
 }

@@ -10,6 +10,7 @@ import addonHandler
 import ui
 import wx
 
+from .task_tree import TaskTree, descendant_tasks
 from .todoist_api import (
     TodoistClient,
     TodoistError,
@@ -18,7 +19,6 @@ from .todoist_api import (
     get_task_content,
     get_task_id,
     get_task_labels,
-    get_task_parent_id,
     get_task_project_id,
     parse_due_datetime,
 )
@@ -884,9 +884,9 @@ class TaskBrowserDialog(wx.Dialog):
                 border=12,
             )
 
-        self.tasksList = wx.ListBox(panel, style=wx.LB_SINGLE)
+        self.tasksTree = TaskTree(panel)
         panelSizer.Add(
-            self.tasksList,
+            self.tasksTree,
             proportion=1,
             flag=wx.EXPAND | wx.LEFT | wx.RIGHT,
             border=12,
@@ -943,9 +943,9 @@ class TaskBrowserDialog(wx.Dialog):
         mainSizer.Add(panel, proportion=1, flag=wx.EXPAND)
         self.SetSizer(mainSizer)
 
-        self.tasksList.Bind(wx.EVT_LISTBOX, self._onSelectionChanged)
-        self.tasksList.Bind(wx.EVT_LISTBOX_DCLICK, self._onOpenSubtasks)
-        self.tasksList.Bind(wx.EVT_KEY_DOWN, self._onTaskListKeyDown)
+        self.tasksTree.Bind(wx.EVT_TREE_SEL_CHANGED, self._onSelectionChanged)
+        self.tasksTree.Bind(wx.EVT_TREE_ITEM_ACTIVATED, self._onOpenSubtasks)
+        self.tasksTree.Bind(wx.EVT_KEY_DOWN, self._onTaskTreeKeyDown)
         if self.addButton is not None:
             self.addButton.Bind(wx.EVT_BUTTON, self._onAddTask)
         self.completeButton.Bind(wx.EVT_BUTTON, self._onComplete)
@@ -968,8 +968,8 @@ class TaskBrowserDialog(wx.Dialog):
         target = None
         if self._parent_task is None and hasattr(self, "projectCombo"):
             target = self.projectCombo
-        elif hasattr(self, "tasksList"):
-            target = self.tasksList
+        elif hasattr(self, "tasksTree"):
+            target = self.tasksTree
         if target is None:
             return
         try:
@@ -987,10 +987,7 @@ class TaskBrowserDialog(wx.Dialog):
         callback(*args)
 
     def _current_task(self) -> dict[str, Any] | None:
-        index = self.tasksList.GetSelection()
-        if index == wx.NOT_FOUND or index >= len(self._visibleTasks):
-            return None
-        return self._visibleTasks[index]
+        return self.tasksTree.current_task()
 
     def _setup_accelerators(self):
         # Set up keyboard handler for filter shortcut
@@ -1078,14 +1075,12 @@ class TaskBrowserDialog(wx.Dialog):
                         if _label_name(label)
                     ]
                 if completed_mode:
-                    tasks = client.get_completed_tasks(
-                        project_id=project_id,
-                        parent_id=get_task_id(parent_task) if parent_task else None,
-                    )
-                elif parent_task is None:
-                    tasks = client.get_tasks(project_id)
+                    tasks = client.get_completed_tasks(project_id=project_id)
                 else:
-                    tasks = client.get_subtasks(parent_task)
+                    # /tasks is paginated and already includes every active depth.
+                    tasks = client.get_tasks(project_id)
+                if parent_task is not None:
+                    tasks = descendant_tasks(tasks, get_task_id(parent_task))
             except Exception as error:
                 wx.CallAfter(self._safe_ui, self._show_error, error)
                 return
@@ -1120,17 +1115,11 @@ class TaskBrowserDialog(wx.Dialog):
 
         self._visibleTasks = filtered_tasks
 
-        self.tasksList.Clear()
-        for task in self._visibleTasks:
-            self.tasksList.Append(_task_summary(task))
-        self._clear_selection()
+        self.tasksTree.render(self._visibleTasks, _task_summary)
         self._update_action_state()
 
     def _clear_selection(self):
-        try:
-            self.tasksList.SetSelection(wx.NOT_FOUND)
-        except Exception:
-            pass
+        self.tasksTree.UnselectAll()
 
     def _onProjectChanged(self, evt):
         self._update_action_state()
@@ -1160,8 +1149,9 @@ class TaskBrowserDialog(wx.Dialog):
 
     def _onSelectionChanged(self, evt):
         self._update_action_state()
+        evt.Skip()
 
-    def _onTaskListKeyDown(self, evt):
+    def _onTaskTreeKeyDown(self, evt):
         if evt.GetKeyCode() == wx.WXK_ESCAPE:
             self._clear_selection()
             self._update_action_state()
