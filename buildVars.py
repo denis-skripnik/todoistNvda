@@ -10,6 +10,6 @@ ADDON_INFO = {
     "docFileName": "readme.html",
     "version": "0.2.0",
     "minimumNVDAVersion": "2024.1",
-    "lastTestedNVDAVersion": "2025.3.3",
+    "lastTestedNVDAVersion": "2026.3",
     "changelog": "Native hierarchical task tree with arrow navigation and selection/expansion restoration.",
 }
