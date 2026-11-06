@@ -1,0 +1,275 @@
+msgid ""
+msgstr "Project-Id-Version: todoistNvda 0.2.1\nLanguage: ru\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add project"
+msgstr "Добавить проект"
+
+msgid "Add task"
+msgstr "Добавить задачу"
+
+msgid "All projects"
+msgstr "Все проекты"
+
+msgid "April"
+msgstr "Апрель"
+
+msgid "August"
+msgstr "Август"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Complete"
+msgstr "Выполнил"
+
+msgid "Completed"
+msgstr "Выполнено"
+
+msgid "Completed subtasks"
+msgstr "Выполненные подзадачи"
+
+msgid "Completed tasks"
+msgstr "Выполненные задачи"
+
+msgid "Daily incomplete tasks time:"
+msgstr "Время ежедневной сводки невыполненных задач:"
+
+msgid "Day:"
+msgstr "День:"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete task"
+msgstr "Удаление задачи"
+
+msgid "Delete the selected task?"
+msgstr "Удалить выбранную задачу?"
+
+msgid "Edit due date"
+msgstr "Изменить срок"
+
+msgid "Edit labels"
+msgstr "Изменить теги"
+
+msgid "Edit task"
+msgstr "Изменить задачу"
+
+msgid "Edit text"
+msgstr "Изменить текст"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Filter cleared"
+msgstr "Фильтр сброшен"
+
+msgid "Filter: {count} labels"
+msgstr "Фильтр: {count} тегов"
+
+msgid "Found tasks: {count}"
+msgstr "Найдено задач: {count}"
+
+msgid "Hours:"
+msgstr "Часы:"
+
+msgid "Invalid date."
+msgstr "Некорректная дата."
+
+msgid "January"
+msgstr "Январь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "Label added"
+msgstr "Тег добавлен"
+
+msgid "Label already exists and was selected."
+msgstr "Тег уже существует и был выбран."
+
+msgid "Label filter"
+msgstr "Фильтр по тегам"
+
+msgid "Label name cannot be empty."
+msgstr "Название тега не может быть пустым."
+
+msgid "Label name must be 40 characters or fewer."
+msgstr "Название тега должно содержать не более 40 символов."
+
+msgid "Label name must not contain spaces."
+msgstr "Название тега не должно содержать пробелы."
+
+msgid "Label name:"
+msgstr "Название тега:"
+
+msgid "Labels"
+msgstr "Теги"
+
+msgid "Labels:"
+msgstr "Теги:"
+
+msgid "Loading projects"
+msgstr "Загрузка проектов"
+
+msgid "Loading tasks"
+msgstr "Загрузка задач"
+
+msgid "March"
+msgstr "Март"
+
+msgid "May"
+msgstr "Май"
+
+msgid "Minutes:"
+msgstr "Минуты:"
+
+msgid "Month:"
+msgstr "Месяц:"
+
+msgid "New label"
+msgstr "Новый тег"
+
+msgid "No Todoist labels available."
+msgstr "Нет доступных тегов Todoist."
+
+msgid "No labels available."
+msgstr "Нет доступных тегов."
+
+msgid "No labels available. Load tasks first."
+msgstr "Нет доступных тегов. Сначала загрузите задачи."
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "Open Todoist manager"
+msgstr "Открыть менеджер Todoist"
+
+msgid "Open Todoist manager first"
+msgstr "Сначала откройте менеджер Todoist"
+
+msgid "Open label filter"
+msgstr "Открыть фильтр по тегам"
+
+msgid "Parent task:"
+msgstr "Родительская задача:"
+
+msgid "Project added"
+msgstr "Проект добавлен"
+
+msgid "Project name cannot be empty."
+msgstr "Название проекта не может быть пустым."
+
+msgid "Project name:"
+msgstr "Название проекта:"
+
+msgid "Project:"
+msgstr "Проект:"
+
+msgid "Reopen"
+msgstr "Вернуть"
+
+msgid "Search"
+msgstr "Найти"
+
+msgid "Select labels to filter:"
+msgstr "Выберите теги для фильтра:"
+
+msgid "Selected task has no id."
+msgstr "У выбранной задачи нет идентификатора."
+
+msgid "September"
+msgstr "Сентябрь"
+
+msgid "Set due date"
+msgstr "Задать срок"
+
+msgid "Set the Todoist API key in NVDA settings first."
+msgstr "Сначала укажите ключ API Todoist в настройках NVDA."
+
+msgid "Set time"
+msgstr "Указать время"
+
+msgid "Subtasks"
+msgstr "Подзадачи"
+
+msgid "Task added"
+msgstr "Задача добавлена"
+
+msgid "Task completed"
+msgstr "Задача выполнена"
+
+msgid "Task deleted"
+msgstr "Задача удалена"
+
+msgid "Task is due now:"
+msgstr "Наступил срок задачи:"
+
+msgid "Task reopened"
+msgstr "Задача возвращена в активные"
+
+msgid "Task text cannot be empty."
+msgstr "Текст задачи не может быть пустым."
+
+msgid "Task text:"
+msgstr "Текст задачи:"
+
+msgid "Task updated"
+msgstr "Задача обновлена"
+
+msgid "Tasks: {count}"
+msgstr "Задач: {count}"
+
+msgid "Today's incomplete tasks"
+msgstr "Невыполненные задачи на сегодня"
+
+msgid "Today's incomplete tasks:"
+msgstr "Невыполненные задачи на сегодня:"
+
+msgid "Todoist"
+msgstr "Todoist"
+
+msgid "Todoist API key is not configured."
+msgstr "Ключ API Todoist не настроен."
+
+msgid "Todoist API key:"
+msgstr "Ключ API Todoist:"
+
+msgid "Todoist connection failed: {error}"
+msgstr "Ошибка подключения к Todoist: {error}"
+
+msgid "Todoist reminder"
+msgstr "Напоминание Todoist"
+
+msgid "Todoist request failed with status {status}: {body}"
+msgstr "Ошибка запроса Todoist, статус {status}: {body}"
+
+msgid "Todoist..."
+msgstr "Todoist..."
+
+msgid "Untitled task"
+msgstr "Задача без названия"
+
+msgid "Working"
+msgstr "Выполнение"
+
+msgid "Year:"
+msgstr "Год:"

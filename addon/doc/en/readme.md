@@ -12,7 +12,7 @@ Todoist for NVDA adds a global Todoist task manager to NVDA.
 - Open nested subtasks and add new subtasks
 - Manage labels with checkboxes and create new labels from the task editor
 - View completed tasks and reopen them
-- Receive a due-time reminder dialog with `Выполнил` and `OK`
+- Receive a due-time reminder dialog with `Complete` and `OK`
 - Receive a daily summary of today's incomplete tasks at a configured time
 
 ## Task tree navigation
@@ -24,6 +24,16 @@ buttons for the selected task at any depth. Escape clears the selection and
 enables Add. Use the Subtasks button to open a branch and add a subtask there.
 Refresh preserves surviving selections and expanded branches. Matching tasks
 remain visible when search or label filters exclude their parents.
+
+## Interface language
+
+The interface follows the NVDA interface language, not the Windows language or
+speech synthesizer voice. Russian (`ru`, including regional variants) uses the
+Russian translation; English and other languages use English source messages.
+After changing the NVDA language, restart NVDA. Menus, settings, dialogs, month
+names, notifications and add-on validation messages are localized. User task,
+project and label names, and raw messages returned by external services are kept
+unchanged. Standard OK/Cancel buttons follow NVDA/wx localization.
 
 ## Settings
 

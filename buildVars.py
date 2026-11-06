@@ -8,8 +8,8 @@ ADDON_INFO = {
     "author": "denis-skripnik",
     "url": "https://github.com/denis-skripnik",
     "docFileName": "readme.html",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "minimumNVDAVersion": "2024.1",
     "lastTestedNVDAVersion": "2026.3",
-    "changelog": "Native hierarchical task tree with arrow navigation and selection/expansion restoration.",
+    "changelog": "Complete Russian and English interface selected automatically from the NVDA language.",
 }

@@ -6,6 +6,7 @@ import zipfile
 from pathlib import Path
 
 from buildVars import ADDON_INFO
+from build_translations import build_translations
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -50,6 +51,7 @@ def main() -> int:
                 )
             else:
                 shutil.copy2(source_path, destination_path)
+        build_translations(staging_dir)
         (staging_dir / "manifest.ini").write_text(build_manifest(), encoding="utf-8")
 
         if output_path.exists():

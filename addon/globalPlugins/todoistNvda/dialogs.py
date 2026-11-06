@@ -184,13 +184,13 @@ def _move_window_near_focus(window: wx.TopLevelWindow) -> None:
 
 class ProjectNameDialog(wx.Dialog):
     def __init__(self, parent):
-        super().__init__(parent, title=_("Добавить проект"), style=wx.DEFAULT_DIALOG_STYLE)
+        super().__init__(parent, title=_("Add project"), style=wx.DEFAULT_DIALOG_STYLE)
         panel = wx.Panel(self)
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         panelSizer = wx.BoxSizer(wx.VERTICAL)
 
         panelSizer.Add(
-            wx.StaticText(panel, label=_("Название проекта:")),
+            wx.StaticText(panel, label=_("Project name:")),
             flag=wx.LEFT | wx.RIGHT | wx.TOP,
             border=12,
         )
@@ -218,7 +218,7 @@ class ProjectNameDialog(wx.Dialog):
 
 class LabelFilterDialog(wx.Dialog):
     def __init__(self, parent, labels: list[str], selected_labels: set[str] | None = None):
-        super().__init__(parent, title=_("Фильтр по тегам"), style=wx.DEFAULT_DIALOG_STYLE)
+        super().__init__(parent, title=_("Label filter"), style=wx.DEFAULT_DIALOG_STYLE)
         self._labels = labels
         self._selected_labels = set(selected_labels) if selected_labels else set()
         self._checkboxes: list[tuple[str, wx.CheckBox]] = []
@@ -229,7 +229,7 @@ class LabelFilterDialog(wx.Dialog):
 
         if labels:
             panelSizer.Add(
-                wx.StaticText(panel, label=_("Выберите теги для фильтра:")),
+                wx.StaticText(panel, label=_("Select labels to filter:")),
                 flag=wx.LEFT | wx.RIGHT | wx.TOP,
                 border=12,
             )
@@ -247,7 +247,7 @@ class LabelFilterDialog(wx.Dialog):
             panelSizer.Add(labelsWindow, proportion=1, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=12)
         else:
             panelSizer.Add(
-                wx.StaticText(panel, label=_("Нет доступных тегов.")),
+                wx.StaticText(panel, label=_("No labels available.")),
                 flag=wx.LEFT | wx.RIGHT | wx.TOP,
                 border=12,
             )
@@ -267,13 +267,13 @@ class LabelFilterDialog(wx.Dialog):
 
 class LabelNameDialog(wx.Dialog):
     def __init__(self, parent):
-        super().__init__(parent, title=_("Новый тег"), style=wx.DEFAULT_DIALOG_STYLE)
+        super().__init__(parent, title=_("New label"), style=wx.DEFAULT_DIALOG_STYLE)
         panel = wx.Panel(self)
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         panelSizer = wx.BoxSizer(wx.VERTICAL)
 
         panelSizer.Add(
-            wx.StaticText(panel, label=_("Название тега:")),
+            wx.StaticText(panel, label=_("Label name:")),
             flag=wx.LEFT | wx.RIGHT | wx.TOP,
             border=12,
         )
@@ -322,7 +322,7 @@ class TaskEditorDialog(wx.Dialog):
         panelSizer = wx.BoxSizer(wx.VERTICAL)
 
         panelSizer.Add(
-            wx.StaticText(panel, label=_("Текст задачи:")),
+            wx.StaticText(panel, label=_("Task text:")),
             flag=wx.LEFT | wx.RIGHT | wx.TOP,
             border=12,
         )
@@ -340,7 +340,7 @@ class TaskEditorDialog(wx.Dialog):
         )
 
         dueState = _extract_due_editor_state(task)
-        self.dueCheckbox = wx.CheckBox(panel, label=_("Задать срок"))
+        self.dueCheckbox = wx.CheckBox(panel, label=_("Set due date"))
         self.dueCheckbox.SetValue(dueState["enabled"])
         panelSizer.Add(self.dueCheckbox, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=12)
 
@@ -349,29 +349,29 @@ class TaskEditorDialog(wx.Dialog):
         self.dayChoice = wx.Choice(panel, choices=self._dayValues)
         self.monthChoice = wx.Choice(panel, choices=[label for _, label in MONTH_CHOICES])
         self.yearSpin = wx.SpinCtrl(panel, min=2000, max=2100, initial=dueState["year"])
-        dateSizer.Add(wx.StaticText(panel, label=_("День:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
+        dateSizer.Add(wx.StaticText(panel, label=_("Day:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
         dateSizer.Add(self.dayChoice, flag=wx.RIGHT, border=12)
-        dateSizer.Add(wx.StaticText(panel, label=_("Месяц:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
+        dateSizer.Add(wx.StaticText(panel, label=_("Month:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
         dateSizer.Add(self.monthChoice, flag=wx.RIGHT, border=12)
-        dateSizer.Add(wx.StaticText(panel, label=_("Год:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
+        dateSizer.Add(wx.StaticText(panel, label=_("Year:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
         dateSizer.Add(self.yearSpin)
         panelSizer.Add(dateSizer, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=12)
 
-        self.timeCheckbox = wx.CheckBox(panel, label=_("Указать время"))
+        self.timeCheckbox = wx.CheckBox(panel, label=_("Set time"))
         self.timeCheckbox.SetValue(dueState["has_time"])
         panelSizer.Add(self.timeCheckbox, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=12)
 
         timeSizer = wx.BoxSizer(wx.HORIZONTAL)
         self.hourSpin = wx.SpinCtrl(panel, min=0, max=23, initial=dueState["hour"])
         self.minuteSpin = wx.SpinCtrl(panel, min=0, max=59, initial=dueState["minute"])
-        timeSizer.Add(wx.StaticText(panel, label=_("Часы:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
+        timeSizer.Add(wx.StaticText(panel, label=_("Hours:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
         timeSizer.Add(self.hourSpin, flag=wx.RIGHT, border=12)
-        timeSizer.Add(wx.StaticText(panel, label=_("Минуты:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
+        timeSizer.Add(wx.StaticText(panel, label=_("Minutes:")), flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT, border=4)
         timeSizer.Add(self.minuteSpin)
         panelSizer.Add(timeSizer, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=12)
 
         panelSizer.Add(
-            wx.StaticText(panel, label=_("Теги:")),
+            wx.StaticText(panel, label=_("Labels:")),
             flag=wx.LEFT | wx.RIGHT | wx.TOP,
             border=12,
         )
@@ -382,7 +382,7 @@ class TaskEditorDialog(wx.Dialog):
             flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP,
             border=12,
         )
-        self.newLabelButton = wx.Button(panel, label=_("Новый тег"))
+        self.newLabelButton = wx.Button(panel, label=_("New label"))
         panelSizer.Add(
             self.newLabelButton,
             flag=wx.LEFT | wx.RIGHT | wx.TOP,
@@ -484,7 +484,7 @@ class TaskEditorDialog(wx.Dialog):
             self.labelsWindow = labelsWindow
         else:
             self.labelsAreaSizer.Add(
-                wx.StaticText(self._panel, label=_("Нет доступных тегов Todoist.")),
+                wx.StaticText(self._panel, label=_("No Todoist labels available.")),
                 flag=wx.EXPAND,
             )
 
@@ -602,7 +602,7 @@ class ReminderDialog(wx.Dialog):
         )
         panel.SetSizer(panelSizer)
 
-        self.completeButton = wx.Button(self, label=_("Выполнил"))
+        self.completeButton = wx.Button(self, label=_("Complete"))
         okButton = wx.Button(self, wx.ID_OK, _("OK"))
         buttonsSizer = wx.StdDialogButtonSizer()
         buttonsSizer.AddButton(self.completeButton)
@@ -658,8 +658,8 @@ class DailySummaryDialog(wx.Dialog):
         )
 
         buttonsSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.completeButton = wx.Button(panel, label=_("Выполнил"))
-        self.editDueButton = wx.Button(panel, label=_("Изменить срок"))
+        self.completeButton = wx.Button(panel, label=_("Complete"))
+        self.editDueButton = wx.Button(panel, label=_("Edit due date"))
         self.okButton = wx.Button(panel, wx.ID_OK, _("OK"))
         buttonsSizer.Add(self.completeButton, flag=wx.RIGHT, border=8)
         buttonsSizer.Add(self.editDueButton, flag=wx.RIGHT, border=8)
@@ -772,7 +772,7 @@ class DailySummaryDialog(wx.Dialog):
             return
         dialog = TaskEditorDialog(
             self,
-            title=_("Изменить срок"),
+            title=_("Edit due date"),
             client_factory=self._client_factory,
             labels=get_task_labels(task),
             task=task,
@@ -802,7 +802,7 @@ class TaskBrowserDialog(wx.Dialog):
     ):
         title = _("Completed tasks") if completed_mode else _("Todoist")
         if parent_task is not None:
-            title = _("Completed subtasks") if completed_mode else _("Подзадачи")
+            title = _("Completed subtasks") if completed_mode else _("Subtasks")
         super().__init__(parent, title=title, style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)
         self.SetMinSize((860, 620))
         self._client_factory = client_factory
@@ -834,14 +834,14 @@ class TaskBrowserDialog(wx.Dialog):
         if self._parent_task is None:
             projectSizer = wx.BoxSizer(wx.HORIZONTAL)
             projectSizer.Add(
-                wx.StaticText(panel, label=_("Проект:")),
+                wx.StaticText(panel, label=_("Project:")),
                 flag=wx.ALIGN_CENTER_VERTICAL | wx.RIGHT,
                 border=8,
             )
             self.projectCombo = wx.ComboBox(panel, style=wx.CB_READONLY, choices=[])
             projectSizer.Add(self.projectCombo, proportion=1, flag=wx.RIGHT, border=8)
             if not self._completed_mode:
-                self.addProjectButton = wx.Button(panel, label=_("Добавить проект"))
+                self.addProjectButton = wx.Button(panel, label=_("Add project"))
                 projectSizer.Add(self.addProjectButton)
             else:
                 self.addProjectButton = None
@@ -849,8 +849,8 @@ class TaskBrowserDialog(wx.Dialog):
 
             searchSizer = wx.BoxSizer(wx.HORIZONTAL)
             self.searchEdit = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER)
-            self.searchButton = wx.Button(panel, label=_("Найти"))
-            self.filterButton = wx.Button(panel, label=_("Фильтр"))
+            self.searchButton = wx.Button(panel, label=_("Search"))
+            self.filterButton = wx.Button(panel, label=_("Filter"))
             searchSizer.Add(self.searchEdit, proportion=1, flag=wx.RIGHT, border=8)
             searchSizer.Add(self.searchButton, flag=wx.RIGHT, border=8)
             searchSizer.Add(self.filterButton)
@@ -869,7 +869,7 @@ class TaskBrowserDialog(wx.Dialog):
         else:
             self.addProjectButton = None
             panelSizer.Add(
-                wx.StaticText(panel, label=_("Родительская задача:")),
+                wx.StaticText(panel, label=_("Parent task:")),
                 flag=wx.LEFT | wx.RIGHT | wx.TOP,
                 border=12,
             )
@@ -894,22 +894,22 @@ class TaskBrowserDialog(wx.Dialog):
 
         buttonsSizer = wx.WrapSizer(wx.HORIZONTAL, 8)
         if not self._completed_mode:
-            self.addButton = wx.Button(panel, label=_("Добавить"))
+            self.addButton = wx.Button(panel, label=_("Add"))
             buttonsSizer.Add(self.addButton, flag=wx.RIGHT | wx.BOTTOM, border=8)
         else:
             self.addButton = None
 
         self.completeButton = wx.Button(
             panel,
-            label=_("Вернуть") if self._completed_mode else _("Выполнил"),
+            label=_("Reopen") if self._completed_mode else _("Complete"),
         )
         buttonsSizer.Add(self.completeButton, flag=wx.RIGHT | wx.BOTTOM, border=8)
 
         if not self._completed_mode:
-            self.editTextButton = wx.Button(panel, label=_("Изменить текст"))
-            self.editDueButton = wx.Button(panel, label=_("Изменить срок"))
-            self.labelsButton = wx.Button(panel, label=_("Теги"))
-            self.deleteButton = wx.Button(panel, label=_("Удалить"))
+            self.editTextButton = wx.Button(panel, label=_("Edit text"))
+            self.editDueButton = wx.Button(panel, label=_("Edit due date"))
+            self.labelsButton = wx.Button(panel, label=_("Labels"))
+            self.deleteButton = wx.Button(panel, label=_("Delete"))
             for button in (
                 self.editTextButton,
                 self.editDueButton,
@@ -923,16 +923,16 @@ class TaskBrowserDialog(wx.Dialog):
             self.labelsButton = None
             self.deleteButton = None
 
-        self.subtasksButton = wx.Button(panel, label=_("Подзадачи"))
+        self.subtasksButton = wx.Button(panel, label=_("Subtasks"))
         buttonsSizer.Add(self.subtasksButton, flag=wx.RIGHT | wx.BOTTOM, border=8)
 
         if not self._completed_mode and self._parent_task is None:
-            self.completedTasksButton = wx.Button(panel, label=_("Выполненные задачи"))
+            self.completedTasksButton = wx.Button(panel, label=_("Completed tasks"))
             buttonsSizer.Add(self.completedTasksButton, flag=wx.RIGHT | wx.BOTTOM, border=8)
         else:
             self.completedTasksButton = None
 
-        self.closeButton = wx.Button(panel, label=_("Закрыть"))
+        self.closeButton = wx.Button(panel, label=_("Close"))
         buttonsSizer.Add(self.closeButton, flag=wx.RIGHT | wx.BOTTOM, border=8)
         panelSizer.Add(buttonsSizer, flag=wx.LEFT | wx.RIGHT | wx.TOP, border=12)
 
@@ -1050,7 +1050,7 @@ class TaskBrowserDialog(wx.Dialog):
         self._projects = projects
         self._labels = labels
         self.projectCombo.Clear()
-        self.projectCombo.Append(_("Все проекты"))
+        self.projectCombo.Append(_("All projects"))
         for project in self._projects:
             self.projectCombo.Append(_project_name(project))
         self._select_project_by_id(currentProjectId)
@@ -1143,9 +1143,9 @@ class TaskBrowserDialog(wx.Dialog):
             dialog.Destroy()
         self._apply_filter()
         if self._labelFilter:
-            self._status(_("Фильтр: {count} тегов").format(count=len(self._labelFilter)))
+            self._status(_("Filter: {count} labels").format(count=len(self._labelFilter)))
         else:
-            self._status(_("Фильтр сброшен"))
+            self._status(_("Filter cleared"))
 
     def _onSelectionChanged(self, evt):
         self._update_action_state()
@@ -1282,7 +1282,7 @@ class TaskBrowserDialog(wx.Dialog):
         )
 
     def _onAddTask(self, evt):
-        payload = self._open_editor(_("Добавить задачу"))
+        payload = self._open_editor(_("Add task"))
         if payload is None:
             return
         parent_id = None
@@ -1319,7 +1319,7 @@ class TaskBrowserDialog(wx.Dialog):
         task = self._current_task()
         if task is None:
             return
-        payload = self._open_editor(_("Изменить задачу"), task=task, focus_target="content")
+        payload = self._open_editor(_("Edit task"), task=task, focus_target="content")
         if payload is None:
             return
         self._apply_editor_update(task, payload, _("Task updated"))
@@ -1328,7 +1328,7 @@ class TaskBrowserDialog(wx.Dialog):
         task = self._current_task()
         if task is None:
             return
-        payload = self._open_editor(_("Изменить срок"), task=task, focus_target="due")
+        payload = self._open_editor(_("Edit due date"), task=task, focus_target="due")
         if payload is None:
             return
         self._apply_editor_update(task, payload, _("Task updated"))
@@ -1337,7 +1337,7 @@ class TaskBrowserDialog(wx.Dialog):
         task = self._current_task()
         if task is None:
             return
-        payload = self._open_editor(_("Изменить теги"), task=task, focus_target="labels")
+        payload = self._open_editor(_("Edit labels"), task=task, focus_target="labels")
         if payload is None:
             return
         self._apply_editor_update(task, payload, _("Task updated"))
